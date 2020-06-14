@@ -4,4 +4,4 @@ docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d p
 - o ideal seria ter um transform de user que remove a senha e infos desnecessarias (isso para todas as entidades)
 
 
-nivel 2 - Upload Imagens - Atualizando Avatar
+nivel 2 - Iniciando back-end do app - Tratando exceções
