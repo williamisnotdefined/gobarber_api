@@ -1,2 +1,6 @@
 docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+
+- user email não está sendo validado o email
+
+
 nivel 2 - cadastro de usuários - model e migration de usuários
