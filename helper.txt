@@ -4,7 +4,7 @@ docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d p
 - o ideal seria ter um transform de user que remove a senha e infos desnecessarias (isso para todas as entidades)
 
 
-nivel 4 - Arquitetura e testes no Node.js - Reescrevendo repositórios
+nivel 4 - Arquitetura e testes no Node.js - Refatorando o modulo de usuários
 
 
 
