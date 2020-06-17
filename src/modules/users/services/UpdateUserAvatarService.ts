@@ -2,14 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import { getRepository } from 'typeorm';
 
-import AppError from '../errors/AppError';
-import User from '../models/User';
-import uploadConfig from '../config/upload';
+import AppError from '@shared/errors/AppError';
+import User from '@modules/users/infra/typeorm/entities/User';
+import uploadConfig from '@config/upload';
 
-interface RequestDTO {
-    userId: string;
+interface avatarFilename {
+    userId?: string;
     avatarFilename: string;
 }
+
 export default class UpdateUserAvatarService {
     public async execute({
         userId,
