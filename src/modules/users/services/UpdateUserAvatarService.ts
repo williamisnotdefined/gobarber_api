@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -11,8 +12,12 @@ interface IAvatarFilename {
     avatarFilename: string;
 }
 
+@injectable()
 export default class UpdateUserAvatarService {
-    constructor(private userRepository: IUserRepository) {}
+    constructor(
+        @inject('UsersRepository')
+        private userRepository: IUserRepository
+    ) {}
 
     public async execute({
         userId,
