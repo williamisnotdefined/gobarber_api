@@ -1,46 +1,31 @@
-import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
-import CreateAppointmentServices from './CreateAppointmentService';
-
 import AppError from '@shared/errors/AppError';
 
-describe('Create Appointment', () => {
-    it('should be able to create a new appointment', async () => {
-        const fakeAppointmentsRepository = new FakeAppointmentsRepository();
-        const createAppointment = new CreateAppointmentServices(
-            fakeAppointmentsRepository
-        );
+import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import CreateUserService from './CreateUserService';
 
-        const fakeProviderId = '123';
+describe('Create User', () => {
+    const fakeUser = {
+        name: 'William',
+        email: 'email@william.com',
+        password: '123456'
+    };
 
-        const appointment = await createAppointment.execute({
-            date: new Date(),
-            provider_id: fakeProviderId
-        });
+    it('should be able to create a new user', async () => {
+        const fakeUsersRepository = new FakeUsersRepository();
+        const createUser = new CreateUserService(fakeUsersRepository);
 
-        expect(appointment).toHaveProperty('id');
-        expect(appointment.provider_id).toBe(fakeProviderId);
+        const newUser = await createUser.execute(fakeUser);
+
+        expect(newUser).toHaveProperty('id');
+        expect(newUser.email).toBe(fakeUser.email);
     });
 
-    it('should not be able to create two appointment in same time', async () => {
-        const fakeAppointmentsRepository = new FakeAppointmentsRepository();
-        const createAppointment = new CreateAppointmentServices(
-            fakeAppointmentsRepository
-        );
+    it('should not be able to create two users with same email', async () => {
+        const fakeUsersRepository = new FakeUsersRepository();
+        const createUser = new CreateUserService(fakeUsersRepository);
 
-        const fakeProviderId = '123';
+        await createUser.execute(fakeUser);
 
-        const appointmentDate = new Date(2020, 4, 10, 11);
-
-        await createAppointment.execute({
-            date: appointmentDate,
-            provider_id: fakeProviderId
-        });
-
-        expect(
-            createAppointment.execute({
-                date: appointmentDate,
-                provider_id: fakeProviderId
-            })
-        ).rejects.toBeInstanceOf(AppError);
+        expect(createUser.execute(fakeUser)).rejects.toBeInstanceOf(AppError);
     });
 });

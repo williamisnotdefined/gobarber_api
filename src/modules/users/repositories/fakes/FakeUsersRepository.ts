@@ -14,13 +14,13 @@ class UsersRepository implements IUserRepository {
 
     public async findByEmail(email: string): Promise<User | undefined> {
         const findedUser = this.users.find(user => user.email === email);
-        return findedUser;
+        return findedUser || undefined;
     }
 
     public async create(userData: ICreateUserDTO): Promise<User> {
         const user = new User();
 
-        Object.assign(user, { id: uuid(), userData });
+        Object.assign(user, { id: uuid(), ...userData });
         this.users.push(user);
 
         return user;
